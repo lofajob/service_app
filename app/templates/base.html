@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description"
+            value="School staff service" />
+        <meta name="author" content="Oleksii Omelchuk">
+
+        <title>{{ title }}</title>
+
+        <!-- Include Styles -->
+        <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/united/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+
+    <body>
+        <div class="container">
+            <!--Start Header-->
+            <div class="row" id="header">
+                <div class="col-xs-12">
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      </button>
+                      <a class="navbar-brand" href="/index">Головна</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                      <ul class="nav navbar-nav navbar-right">
+                        <li class=""><a href="#">MySQl <span class="sr-only"></span></a></li>
+                        <li><a href="#">Mongo</a></li>
+                      </ul>
+
+                    </div><!-- /.navbar-collapse -->
+                  </div><!-- /.container-fluid -->
+                </nav>
+                </div>
+            </div>
+
+            <!-- Status message -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="row" id="content-columns">
+                <div class="col-xs-12" id="content-column">
+                    <div class="alert alert-info" role="alert">
+                        <ul>
+            {% for message in messages %}
+                            <li>{{ message }}</li>
+            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            {% endwith %}
+
+            <!--End Header-->
+            {% block content %} {% endblock %}
+
+            <!--Start Footer-->
+            <footer class="footer">
+                <div class="col-xs-12">
+                    <p>&copy; Copyright 2015 School staff service | All Rights Reserved</p>
+                </div>
+            </footer>
+            <!--End Footer-->
+
+        </div>
+        <!--End container-->
+
+        <!-- Javascript Inclusion -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
