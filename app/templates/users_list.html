@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <!--Start Main Page Content-->
+  <div class="page-header">
+      <h3>Список користувачів</h3>
+  </div>
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Права доступу</th>
+        <th>Прізвище</th>
+        <th>Ім’я</th>
+        <th>Login</th>
+        <th>Електронна скринька</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for user in context %}
+      <tr>
+        <td>{{ user.role }}</td>
+        <td>{{ user.lname }}</td>
+        <td>{{ user.fname }}</td>
+        <td>{{ user.login }}</td>
+        <td>{{ user.email }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!--End Main Page Content-->
+{% endblock %}

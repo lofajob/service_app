@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+  <!--Start Main Page Content-->
+  <div class="row" id="form">
+    <form class="form-horizontal" method="POST" action="">
+      {{ form.csrf_token }}
+      <fieldset>
+        <legend>Додати користувача системи</legend>
+
+        <div class="form-group">
+          <label for="inputLname" class="col-lg-2 control-label">Прізвище</label>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="inputLname" placeholder="Прізвище">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputFname" class="col-lg-2 control-label">Ім’я</label>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="inputFname" placeholder="Ім’я">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputLogin" class="col-lg-2 control-label">Lgin</label>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="inputLogin" placeholder="Login">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+          <div class="col-lg-4">
+            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="select" class="col-lg-2 control-label">Selects</label>
+          <div class="col-lg-4">
+            <select class="form-control" name="user_role" id="select_role">
+              <option>Виберіть права</option>
+              {% for role in roles %}
+              <option value="{{ role.id }}">{{ role.role_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-2">
+            <button type="reset" class="btn btn-default">Відмінити</button>
+            <button type="submit" class="btn btn-primary">Прийняти</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <!--End Main Page Content-->
+{% endblock %}
