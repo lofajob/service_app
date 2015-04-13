@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <!--Start Main Page Content-->
+  <div class="row" id="form">
+    <form class="form-horizontal" method="POST" action="">
+      <fieldset>
+        <legend>Додати користувача системи</legend>
+
+        <div class="form-group">
+          <label for="select" class="col-lg-2 control-label">Selects</label>
+          <div class="col-lg-2">
+            <select class="form-control" name="user_role" id="select_role">
+              <option value="">Виберіть права</option>
+              {% for role in roles %}
+              <option value="{{ role.id }}">{{ role.role_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-10 col-lg-offset-3">
+            <button type="reset" class="btn btn-default">Відмінити</button>
+            <button type="submit" class="btn btn-primary">Прийняти</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+    {% if message %}
+      <p>{{ message }}</p>
+    {% endif %}
+  </div>
+  <!--End Main Page Content-->
+{% endblock %}

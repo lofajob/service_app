@@ -25,12 +25,29 @@ def add_user():
     roles = Role.query.all()
     form = AddUser()
 
-    if form.validate_on_submit():
-        user = User(form.fname, form.lname, form.login, form.email, )
+    if request.method == 'POST' and form.validate_on_submit():
+        vacansy = Role.query.filter_by(id=request.form['user_role']).first()
+        user = User(form.fname.data, form.lname.data, form.login.data,\
+                    form.email.data, vacansy)
         db.session.add(user)
         db.session.commit()
         return redirect('/userslist')
+
     return render_template('add.html', roles=roles, form=form)
+
+
+@app.route('/test', methods=['GET', 'POST'])
+def test():
+    """fuction for debugging"""
+    roles = Role.query.all()
+
+    if request.method == 'POST':
+        if request.form['user_role'] != '':
+        #return redirect('/userslist')
+            vacansy = Role.query.filter_by(id=request.form['user_role']).first()
+            #return request.form['user_role']
+            return render_template('test.html', message=vacansy)
+    return render_template('test.html', roles=roles)
 
 
 @app.errorhandler(404)
