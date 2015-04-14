@@ -2,48 +2,65 @@
 {% block content %}
   <!--Start Main Page Content-->
   <div class="row" id="form">
+  <div class="col-lg-12">
     <form class="form-horizontal" method="POST" action="">
       {{ form.csrf_token }}
       <fieldset>
         <legend>Додати користувача системи</legend>
 
         <div class="form-group">
-          <label for="inputLname" class="col-lg-2 control-label">
-            Прізвище
-          </label>
+          <div class="col-lg-2 col-lg-offset-2">
+            {{ form.lname.label }}
+          </div>
           <div class="col-lg-4">
-            <input type="text" class="form-control" id="inputLname"
-                   placeholder="Прізвище">
+            {{ form.lname(size=20) }}
+            {% for error in form.errors.lname %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
           </div>
         </div>
 
         <div class="form-group">
-          <label for="inputFname" class="col-lg-2 control-label">Ім’я</label>
+          <div class="col-lg-2 col-lg-offset-2">
+            {{ form.fname.label }}
+          </div>
           <div class="col-lg-4">
-            <input type="text" class="form-control" id="inputFname"
-                   placeholder="Ім’я">
+            {{ form.fname(size=20) }}
+            {% for error in form.errors.fname %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
           </div>
         </div>
 
         <div class="form-group">
-          <label for="inputLogin" class="col-lg-2 control-label">Lgin</label>
+          <div class="col-lg-2 col-lg-offset-2">
+            {{ form.login.label }}
+          </div>
           <div class="col-lg-4">
-            <input type="text" class="form-control" id="inputLogin" placeholder="Login">
+            {{ form.login(size=20) }}
+            {% for error in form.errors.login %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
           </div>
         </div>
 
         <div class="form-group">
-          <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-          <div class="col-lg-4">
-            <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+          <div class="col-lg-2 col-lg-offset-2">
+            {{ form.email.label }}
+          </div>
+          <div class="col-lg-6">
+            {{ form.email(size=20) }}
+            {% for error in form.errors.email %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
           </div>
         </div>
 
         <div class="form-group">
-          <label for="select" class="col-lg-2 control-label">Selects</label>
-          <div class="col-lg-4">
+          <label for="select_role" class="col-lg-1 col-lg-offset-2 control-label">Selects</label>
+          <div class="col-lg-2 col-lg-offset-1">
             <select class="form-control" name="user_role" id="select_role">
-              <option>Виберіть права</option>
+              <option value="">Виберіть права</option>
               {% for role in roles %}
               <option value="{{ role.id }}">{{ role.role_name }}</option>
               {% endfor %}
@@ -52,13 +69,14 @@
         </div>
 
         <div class="form-group">
-          <div class="col-lg-10 col-lg-offset-2">
-            <button type="reset" class="btn btn-default">Відмінити</button>
-            <button type="submit" class="btn btn-primary">Прийняти</button>
+          <div class="col-lg-10 col-lg-offset-3">
+            <a href="{{ url_for('userslist') }}"><button type="button" class="btn btn-default" name="cancel">Відмінити</button></a>
+            <button type="submit" class="btn btn-primary" name="go">Прийняти</button>
           </div>
         </div>
       </fieldset>
     </form>
+    </div>
   </div>
   <!--End Main Page Content-->
 {% endblock %}

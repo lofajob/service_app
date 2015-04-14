@@ -10,7 +10,6 @@ class AddUser(Form):
     lname = TextField('Last Name', [validators.Required()])
     login = TextField('Login', [validators.Required()])
     email = TextField('Email Address', [validators.Length(min=6, max=35)])
-    #role =
 
 
 class LoginForm(Form):
