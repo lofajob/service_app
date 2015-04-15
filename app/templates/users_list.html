@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-  <!--Start Main Page Content-->
-  <div class="page-header">
+
+  <div class="page-header"><!--Start Main Page Content-->
       <h3>Список користувачів</h3>
   </div>
   <table class="table table-hover table-striped">
@@ -18,7 +18,10 @@
     <tbody>
       {% for user in context %}
       <tr>
-        <td>{{ user.role }}</td>
+        <td>{% if user.role %}
+              {{ user.role.role_name }}
+            {% else %}Невизначено{% endif %}
+        </td>
         <td>{{ user.lname }}</td>
         <td>{{ user.fname }}</td>
         <td>{{ user.login }}</td>
@@ -29,11 +32,16 @@
   </table>
   <div class="row">
     <div class="col-lg-10 col-lg-offset-2">
-    <ul class="pager">
-      <li class="next"><a href="{{ url_for('add_user') }}">Додати користувача</a></li>
-    </ul>
+      <ul class="pager">
+        <li class="next">
+          <a href="{% if '/mongo' in request.path %}
+                      {{ url_for('mongo_add') }}
+                   {% else %}
+                      {{ url_for('add_user') }}
+                   {% endif %}">Додати користувача
+          </a>
+        </li>
+      </ul>
     </div>
-  </div>
-
-  <!--End Main Page Content-->
+  </div> <!--End Main Page Content-->
 {% endblock %}

@@ -2,7 +2,7 @@
 
 from flask import render_template, flash, redirect, url_for, request
 
-from app import app, db
+from app import app, db, user_instant
 from forms import LoginForm, AddUser
 from models import User, Role
 
@@ -17,6 +17,13 @@ def index():
 def userslist():
     context = User.query.all()
 
+    return render_template('users_list.html', context=context)\
+
+
+@app.route('/mongo/users_list')
+def mongo_userslist():
+    context = user_instant.select_all()
+
     return render_template('users_list.html', context=context)
 
 
@@ -27,10 +34,10 @@ def add_user():
 
     if request.method == 'POST' and form.validate_on_submit():
         if request.form['user_role'] != '':
-            vacansy = Role.query.filter_by(\
+            role = Role.query.filter_by(\
                                         id=request.form['user_role']).first()
             user = User(form.fname.data, form.lname.data, form.login.data,\
-                        form.email.data, vacansy)
+                        form.email.data, role)
             db.session.add(user)
             db.session.commit()
             flash('%s %s was successfully added to Data Base'\
@@ -40,18 +47,62 @@ def add_user():
     return render_template('add_user.html', roles=roles, form=form)
 
 
+@app.route('/mongo_add', methods=['GET', 'POST'])
+def mongo_add():
+    form = AddUser()
+    if request.method == 'POST' and form.validate_on_submit():
+        if request.form['user_role'] != '':
+            # parsing role values
+            role = {}
+
+            role_unicod = request.form['user_role']
+
+            id = role_unicod[3:4]
+            id = int(id)
+
+            name_start = role_unicod.find('role_name')
+            name_end = len(role_unicod)
+            name = role_unicod[name_start+10:name_end]
+
+            role['id'] = id
+            role['role_name'] = name
+
+            # insert data to DB
+            user_instant.insert(fname=form.fname.data, lname=form.lname.data,\
+                                login=form.login.data, email=form.email.data,\
+                                role=role)
+            return redirect(url_for('mongo_userslist'))
+
+    return render_template('mongo_add.html', form=form)
+
+
 @app.route('/test', methods=['GET', 'POST'])
 def test():
     """fuction for debugging"""
     roles = Role.query.all()
+    r = request.path
 
     if request.method == 'POST':
         if request.form['user_role'] != '':
+            role = {}
+
+            role_unicod = request.form['user_role']
+
+            id = role_unicod[3:4]
+            id = int(id)
+
+            name_start = role_unicod.find('role_name')
+            name_end = len(role_unicod)
+            name = role_unicod[name_start+10:name_end]
+
+            role['id'] = id
+            role['name'] = name
         #return redirect('/userslist')
-            vacansy = Role.query.filter_by(\
-                                        id=request.form['user_role']).first()
-            return render_template('test.html', roles=roles, message=vacansy)
-    return render_template('test.html', roles=roles)
+            #vacansy = Role.query.filter_by(\
+            #                            id=request.form['user_role']).first()
+            return render_template('test.html', roles=roles, message = name)
+
+    return render_template('test.html', roles=roles, message=r)
 
 
 @app.errorhandler(404)

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from pprint import pprint
@@ -38,7 +37,7 @@ class MongoOrm(object):
         This method selects all entries
         and shows all fields of it's
         """
-        return pprint(list(self.coll.find()))
+        return list(self.coll.find())
 
     def select(self, **kwargs):
         """
@@ -55,7 +54,7 @@ class MongoOrm(object):
         for doc in self.coll.find():
             del(doc['_id'])
             json.append(doc)
-        return pprint(json)
+        return json
 
     def insert(self, **kwargs):
         """
@@ -75,6 +74,9 @@ class MongoOrm(object):
         self.coll.update(find,set)
 
 if __name__ == "__main__":
-    s = MongoOrm(database='unicorns')
+    s = MongoOrm(database='users')
     s.connect_to_db()
-    s.switch_collection('unicorns')
+    s.switch_collection('users')
+    s.insert(fname='Petro', lname='Rak', login='ppppttt', \
+             email='qwert@ukr.net', role_name= 'metodist')
+    s.select_all()

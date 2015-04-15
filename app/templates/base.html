@@ -24,13 +24,13 @@
                     <div class="navbar-header">
                       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                       </button>
-                      <a class="navbar-brand" href="/index">Головна</a>
+                      <a class="navbar-brand" href="{{ url_for('index') }}">Головна</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                       <ul class="nav navbar-nav navbar-right">
-                        <li class=""><a href="#">MySQl <span class="sr-only"></span></a></li>
-                        <li><a href="#">Mongo</a></li>
+                        <li class=""><a href="{{ url_for('userslist') }}">MySQl <span class="sr-only"></span></a></li>
+                        <li><a href="{{ url_for('mongo_userslist') }}">Mongo</a></li>
                       </ul>
 
                     </div><!-- /.navbar-collapse -->
